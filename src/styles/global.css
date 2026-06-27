@@ -1,0 +1,215 @@
+/* ---------------------------------------------------------------------
+   Design tokens.
+   Three registers, mapped deliberately:
+     - serif   -> prose written by a human (titles, body text)
+     - mono    -> system chrome (nav, dates, tags, captions) — things
+                  *about* the content rather than the content itself
+     - code    -> executable truth (Shiki handles this separately)
+   ------------------------------------------------------------------- */
+:root {
+  --color-bg: #f3f4f6;
+  --color-text: #1a1d23;
+  --color-muted: #5b6270;
+  --color-accent: #3450a3;
+  --color-border: #e2e4e8;
+
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+
+  --measure: 38rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Site header: monospace, quiet, system-voice */
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+  padding: 1.75rem 0;
+  margin-bottom: 2.5rem;
+}
+
+.site-header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+.site-header .site-title {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.site-header .links {
+  display: flex;
+  gap: 1.25rem;
+  color: var(--color-muted);
+}
+
+.site-header .links a {
+  color: var(--color-muted);
+}
+
+.site-header .links a:hover {
+  color: var(--color-accent);
+}
+
+/* Post list (index page) */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.post-list li {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.post-list li:first-child {
+  padding-top: 0;
+}
+
+.post-list h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.375rem;
+  font-weight: 600;
+}
+
+.post-list h2 a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.post-list h2 a:hover {
+  color: var(--color-accent);
+}
+
+.post-list p {
+  margin: 0 0 0.5rem;
+  color: var(--color-muted);
+}
+
+/* The "signature line" — post metadata rendered as a typed annotation,
+   e.g.  -- 2026-06-27 · 6 min read · tags: [dsl, type-systems] */
+.signature {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+  letter-spacing: 0.01em;
+}
+
+.signature::before {
+  content: '-- ';
+  opacity: 0.6;
+}
+
+/* Single post */
+.post-header {
+  margin-bottom: 2.5rem;
+}
+
+.post-header h1 {
+  font-size: 2.25rem;
+  line-height: 1.2;
+  margin: 0.25rem 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.post-content :where(h2, h3) {
+  letter-spacing: -0.005em;
+}
+
+.post-content h2 {
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.post-content h3 {
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+.post-content p,
+.post-content ul,
+.post-content ol {
+  margin: 1.1rem 0;
+}
+
+.post-content blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-muted);
+}
+
+/* Inline code stays in the mono register; fenced blocks are handled by
+   Shiki (astro.config.mjs), which already emits its own background. */
+.post-content :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-border);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+
+.post-content pre {
+  border-radius: 6px;
+  padding: 1.1rem 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  overflow-x: auto;
+}
+
+.site-footer {
+  margin: 4rem 0 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

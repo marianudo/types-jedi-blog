@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../utils/base';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Mariano Navas — type-driven design &amp; DSLs">
+  <p class="signature">type-driven design · DSLs · a Lightning Network playground</p>
+
+  <ul class="post-list">
+    {
+      posts.map((post) => (
+        <li>
+          <h2>
+            <a href={withBase(`blog/${post.id}/`)}>{post.data.title}</a>
+          </h2>
+          <p>{post.data.description}</p>
+          <p class="signature">
+            {post.data.pubDate.toISOString().slice(0, 10)} · tags: [{post.data.tags.join(', ')}]
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+
+  {posts.length === 0 && <p class="signature">No posts yet — add a markdown file to src/content/blog/.</p>}
+</BaseLayout>
