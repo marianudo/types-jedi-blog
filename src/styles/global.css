@@ -14,11 +14,12 @@
   --color-muted: #9aa1ad;
   --color-accent: #8da3e8;
   --color-border: #2a2d34;
+  --color-grid: rgba(141, 163, 232, 0.05);
 
   --font-serif: 'Source Serif 4', Georgia, serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
 
-  --measure: 38rem;
+  --measure: clamp(40rem, 48vw, 54rem);
 }
 
 * {
@@ -27,7 +28,13 @@
 
 body {
   margin: 0;
-  background: var(--color-bg);
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(141, 163, 232, 0.08), transparent 60%),
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+  background-attachment: fixed;
   color: var(--color-text);
   font-family: var(--font-serif);
   font-size: 1.125rem;
@@ -118,6 +125,7 @@ button:focus-visible {
 .post-list h2 a {
   color: var(--color-text);
   text-decoration: none;
+  transition: color 0.25s ease;
 }
 
 .post-list h2 a:hover {
@@ -175,19 +183,35 @@ button:focus-visible {
   margin: 1.1rem 0;
 }
 
-.post-content blockquote {
+/* .post-content blockquote {
   margin: 1.5rem 0;
   padding-left: 1rem;
   border-left: 2px solid var(--color-accent);
+  color: var(--color-muted);
+} */
+
+.post-content blockquote {
+  margin: 1.5rem 0;
+  padding: 0.25rem 1.25rem;
+  border-left: 2px solid var(--color-accent);
+  background: rgba(141, 163, 232, 0.05);
   color: var(--color-muted);
 }
 
 /* Inline code stays in the mono register; fenced blocks are handled by
    Shiki (astro.config.mjs), which already emits its own background. */
-.post-content :not(pre) > code {
+/* .post-content :not(pre) > code {
   font-family: var(--font-mono);
   font-size: 0.875em;
   background: var(--color-border);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+} */
+ .post-content :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: rgba(147, 168, 231, 0.12);
+  color: var(--color-accent);
   padding: 0.15em 0.4em;
   border-radius: 3px;
 }

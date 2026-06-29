@@ -22,7 +22,6 @@ const updatedStr = updatedDate ? updatedDate.toISOString().slice(0, 10) : null;
       <p class="signature">
         {dateStr} · {readingMinutes} min{updatedStr ? ` · updated ${updatedStr}` : ''} · tags: [{tags.join(', ')}]
       </p>
-      <h1>{title}</h1>
     </header>
     <div class="post-content">
       <slot />

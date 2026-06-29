@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod'
 import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
@@ -10,7 +11,7 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
     // Set true while a post is still being drafted; excluded from build output.
-    draft: z.boolean().default(false),
+    draft: z.boolean().default(true),
   }),
 });
 
